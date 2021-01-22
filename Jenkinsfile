@@ -11,7 +11,6 @@ pipeline {
         stage('Terraform initialization') {
             steps {
                     sh "aws s3 ls"
-                }
             }
         }
     }
