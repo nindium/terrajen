@@ -8,10 +8,7 @@ node {
 
 pipeline {
     agent any  
-    environment {
-        AWS_ACCESS_KEY_ID = "${KEY_ID}"
-        AWS_SECRET_ACCESS_KEY = "${SECRET_ACCESS_KEY}"
-    }
+    
     stages {
         stage('Terraform initialization') {
             steps {
