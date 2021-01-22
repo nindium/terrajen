@@ -1,0 +1,62 @@
+stage("S3 Bucket creating") {
+            steps {
+                script {
+                    createS3Bucket("jentf-state-store")
+                }
+            }
+
+        }
+
+stage("Terraform Initialization"){
+            steps {
+                sh "terraform init"
+            }
+        }
+
+stage("Appling to prod environment") {
+            steps {
+                sh label: 'Creating PROD workspace', returnStatus: true, script: "terraform workspace new prod"
+                sh "terraform apply -var-file=prod.tfvars --auto-approve"
+            }
+        }
+
+
+
+pipeline {
+    agent any
+    environment {
+      PATH = "${PATH}:${getTerraformPath()}"
+    }
+
+    stages {
+        stage("S3 Bucket creating") {
+            steps {
+                script {
+                    createS3Bucket("jentf-state-store")
+                }
+            }
+
+        }
+        
+        stage("Appling to dev environment") {
+            steps {
+                
+                sh label: 'Creating DEV workspace', returnStatus: true, script: "terraform workspace new dev"
+                sh "terraform init"
+                sh "terraform apply -var-file=dev.tfvars --auto-approve"
+            }
+        }
+
+        
+    }
+}
+
+def getTerraformPath() {
+    def tfHome = tool name: 'Terraform-14', type: 'terraform'
+    return tfHome
+
+}
+
+def createS3Bucket(BucketName){
+    sh label: 'Creating S3 bucket', returnStatus: true, script: "aws s3 mb s3://${BucketName} --region us-east-1"
+}
