@@ -8,7 +8,7 @@ resource "aws_vpc" "my_vpc" {
 }
 
 resource "aws_subnet" "public_subnet" {
-    vpc_id = aws_vpc.my_vpc
+    vpc_id = aws_vpc.my_vpc.id
     cidr_block = cidrsubnet(var.vpc_cidr, 8, 10)
     tags = {
         Name = "Public Subnet - ${terraform.workspace}"
