@@ -15,8 +15,7 @@ pipeline {
                 }
             }
         }
-        
-        stage("Terraform initialization")
+        stage("Terraform initialization") {
             steps {
                 sh "terraform init"
             }
