@@ -1,17 +1,12 @@
+withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'terraform', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {}
+
 pipeline {
     agent any  
-   
     stages {
         stage('Terraform initialization') {
             steps {
-                sh "terraform init"
+                sh "aws s3 ls"
             }
         }
     }
-}
-
-def getTerraformPath() {
-    def tfHome = tool name: 'Terraform-14', type: 'terraform'
-    return tfHome
-
 }
