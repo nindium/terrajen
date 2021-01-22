@@ -7,10 +7,9 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_KEY")
     }
     stages {
-            stage('Terraform initialization') {
-                steps {
-                    sh "aws s3 ls"
-                }
+        stage('Terraform initialization') {
+            steps {
+                sh "aws s3 ls"
             }
         }
     }
