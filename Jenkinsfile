@@ -8,6 +8,13 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_KEY")
     }
     stages {
+        stage("S3 Bucket creating") {
+            steps {
+                script {
+                    createS3Bucket("jentf-state-store")
+                }
+            }
+        }
         stage('Terraform initialization') {
             steps {
                 sh "terraform init"
@@ -20,4 +27,8 @@ def getTerraformPath() {
     def tfHome = tool name: 'Terraform-14', type: 'terraform'
     return tfHome
 
+}
+
+def createS3Bucket(BucketName){
+    sh label: 'Creating S3 bucket', returnStatus: true, script: "aws s3 mb s3://${BucketName} --region us-east-1"
 }
