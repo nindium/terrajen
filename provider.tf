@@ -5,7 +5,7 @@ provider "aws" {
 terraform {
     backend "s3" {
         encrypt = "true"
-        bucket = "cloudiar-terraf-bucket"
+        bucket = "jentf-state-store"
         key = "terraform.tfstate"
         region = "us-east-1"
         dynamodb_table = "jenkins-tf"
