@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh "terraform init"
             }
-
+        }
         stage("Appling to dev environment") {
             steps {
                 sh label: 'Creating DEV workspace', returnStatus: true, script: "terraform workspace new dev"
