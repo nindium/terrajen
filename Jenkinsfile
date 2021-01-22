@@ -10,7 +10,7 @@ pipeline {
                     credentialsId: 'terraform',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) { 
-                    sh "aws s3 ls"
+                    sh "terraform init"
                 }
             }
         }
