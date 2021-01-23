@@ -6,7 +6,7 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials("AWS_ACCESS_KEY")
         AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_KEY")
     }
-    
+
     stages {
         stage("S3 Bucket creating") {
             steps {
@@ -28,6 +28,7 @@ pipeline {
                 sh "terraform apply -var-file=dev.tfvars --auto-approve"
             }
         }
+        
         stage("Appling to prod environment") {
             steps {
                 sh label: '', returnStatus: true, script: 'terraform workspace new prod'
