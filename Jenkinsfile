@@ -7,6 +7,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_KEY")
     }
 
+
     stages {
         stage("S3 Bucket creating") {
             steps {
