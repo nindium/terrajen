@@ -1,7 +1,6 @@
 
 pipeline {
     agent any  
-   
     environment {
         PATH = "${PATH}:${getTerraformPath()}"
         AWS_ACCESS_KEY_ID = credentials("AWS_ACCESS_KEY")
