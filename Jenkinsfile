@@ -54,6 +54,5 @@ def getAnsiblePath() {
 def createInfraSTR(my_env) {
     sh label: '', returnStatus: true, script: "terraform workspace new ${my_env}"
     sh "terraform workspace select ${my_env}"
-    sh "terraform apply -var-file=${my_env}.tfvars --auto-approve"
-    return 1
+    sh "ansible-playbook ans-terraform.yml"
 }
