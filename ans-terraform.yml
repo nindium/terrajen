@@ -2,10 +2,18 @@
 - name: Create AWS infrastructure with Terraform
   hosts: localhost
   connection: local
+  vars:
+    state: present
+    s3_bucket: jentf-state-store
+    key: terraform.tfstate
+    region: us-east-1
+    app_env: dev
+
   gather_facts: false
   tasks:
   - name: Run terraform scripts
     terraform:
       project_path: "./"
-      state: present
+      state: absent
+      
      
