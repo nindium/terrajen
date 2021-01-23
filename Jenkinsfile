@@ -23,15 +23,17 @@ pipeline {
         
         stage("Appling to dev environment") {
             steps {
-                sh label: '', returnStatus: true, script: 'terraform workspace new dev'
-                sh "terraform apply -var-file=dev.tfvars --auto-approve"
+                script {
+                    createInfraStr("dev")
+                }
             }
         }
 
         stage("Appling to prod environment") {
             steps {
-                sh label: '', returnStatus: true, script: 'terraform workspace new prod'
-                sh "terraform apply -var-file=prod.tfvars --auto-approve"
+                script {
+                    createInfraStr("prod")
+                }
             }
         }
     }
@@ -41,4 +43,11 @@ def getTerraformPath() {
     def tfHome = tool name: 'Terraform-14', type: 'terraform'
     return tfHome
 
+}
+
+def createInfraSTR(my_env) {
+    sh label: '', returnStatus: true, script: 'terraform workspace new ${my_env}'
+    sh "terraform workspace select ${my_env}"
+    sh "terraform apply -var-file=${my_env}.tfvars --auto-approve"
+    return 1
 }

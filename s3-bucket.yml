@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   tasks:
-  - name: Installing boto3
+  - name: Installing boto
     pip:
       name: boto
       state: present
