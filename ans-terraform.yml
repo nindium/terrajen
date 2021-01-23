@@ -1,0 +1,11 @@
+---
+- name: Create AWS infrastructure with Terraform
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+  - name: Run terraform scripts
+    terraform:
+      project_path: "./"
+      state: present
+     
