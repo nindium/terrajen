@@ -24,7 +24,7 @@ pipeline {
         stage("Appling to dev environment") {
             steps {
                 script {
-                    createInfraStr("dev")
+                    createInfraSTR("dev")
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
         stage("Appling to prod environment") {
             steps {
                 script {
-                    createInfraStr("prod")
+                    createInfraSTR("prod")
                 }
             }
         }
