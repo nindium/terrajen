@@ -14,6 +14,12 @@
   - name: Run terraform scripts
     terraform:
       project_path: "./"
-      state: absent
-      
+      state: present
+      backend_config:
+        region: "{{ region }}"
+        bucket: "{{ s3_bucket }}"
+        key: "{{ key }}"
+      variables_file: "{{ app_env }}.tfvars"
+      workspace: "{{ app_env }}"
+
      

@@ -7,7 +7,6 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_KEY")
     }
 
-
     stages {
         stage("S3 Bucket creating") {
             steps {
@@ -45,14 +44,8 @@ def getTerraformPath() {
 
 }
 
-def getAnsiblePath() {
-    def tfHome = tool name: 'ansible', type: 'ansible'
-    return tfHome
-
-}
 
 def createInfraSTR(my_env) {
     sh label: '', returnStatus: true, script: "terraform workspace new ${my_env}"
-    sh "terraform workspace select ${my_env}"
-    sh "ansible-playbook ans-terraform.yml"
+    sh "ansible-playbook ans-terraform.yml --extra-vars app_env=${my_env}"
 }
