@@ -15,17 +15,21 @@ pipeline {
                 }
             }
         }
+
+        stage("Terraform initialization") {
+            steps {
+                sh "terraform init"
+            }
+        }
         
         stage("Appling to dev environment") {
             steps {
-                sh "terraform init"
                 sh label: '', returnStatus: true, script: 'terraform workspace new dev'
                 sh "terraform apply -var-file=dev.tfvars --auto-approve"
             }
         }
         stage("Appling to prod environment") {
             steps {
-                sh "terraform init"
                 sh label: '', returnStatus: true, script: 'terraform workspace new prod'
                 sh "terraform apply -var-file=prod.tfvars --auto-approve"
             }
