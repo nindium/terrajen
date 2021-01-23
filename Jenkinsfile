@@ -28,7 +28,7 @@ pipeline {
                 sh "terraform apply -var-file=dev.tfvars --auto-approve"
             }
         }
-        
+
         stage("Appling to prod environment") {
             steps {
                 sh label: '', returnStatus: true, script: 'terraform workspace new prod'
