@@ -2,7 +2,7 @@
 pipeline {
     agent any  
     environment {
-        PATH = "${PATH}:/usr/local/bin:${getTerraformPath()}"
+        PATH = "${PATH}:${getAnsiblePath()}:${getTerraformPath()}"
         AWS_ACCESS_KEY_ID = credentials("AWS_ACCESS_KEY")
         AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_KEY")
     }
@@ -41,6 +41,12 @@ pipeline {
 
 def getTerraformPath() {
     def tfHome = tool name: 'Terraform-14', type: 'terraform'
+    return tfHome
+
+}
+
+def getAnsiblePath() {
+    def tfHome = tool name: 'ansible', type: 'ansible'
     return tfHome
 
 }
