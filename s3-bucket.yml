@@ -1,5 +1,5 @@
 ---
-- name: Create S3 bucket and DynamoDB
+- name: Instal boto. Create S3 bucket and DynamoDB
   hosts: localhost
   connection: local
   tasks:
@@ -7,6 +7,7 @@
     pip:
       name: boto
       state: present
+
   - name: Creating DynamoDB
     dynamodb_table: 
       name: jenkins-tf
@@ -19,5 +20,5 @@
     
   - name: Creating S3 bucket
     s3_bucket:
-      name: jentf-state-store
+      name: jentf-statefile-store
       state: present
