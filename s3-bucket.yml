@@ -1,0 +1,14 @@
+---
+- name: Jenkins-Ansible integration
+  hosts: localhost
+  tasks:
+  - name: Installing boto3
+    pip:
+      name: boto3
+      state: present
+
+  - name: Creating S3 bucket
+    s3_bucket:
+      name: jentf-state-store
+      state: present
+      

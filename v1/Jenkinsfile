@@ -11,7 +11,9 @@ pipeline {
     stages {
         stage("S3 Bucket creating") {
             steps {
-                sh "ansible-playbook s3-bucket.yml"
+                script {
+                    createS3Bucket("jentf-state-store")
+                }
             }
         }
 
@@ -41,4 +43,8 @@ def getTerraformPath() {
     def tfHome = tool name: 'Terraform-14', type: 'terraform'
     return tfHome
 
+}
+
+def createS3Bucket(BucketName){
+    sh label: 'Creating S3 bucket', returnStatus: true, script: "aws s3 mb s3://${BucketName} --region us-east-1"
 }
